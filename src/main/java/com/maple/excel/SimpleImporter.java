@@ -23,7 +23,7 @@ import java.util.Objects;
  * @author zhankun
  * @date 2023/3/24 11:15
  */
-public class SimpleImport<T> {
+public class SimpleImporter<T> {
 
     private int headerNum;
 
@@ -32,7 +32,7 @@ public class SimpleImport<T> {
     private Class<T> clazz;
 
 
-    public SimpleImport(int headerNum, Class<T> clazz) {
+    public SimpleImporter(int headerNum, Class<T> clazz) {
         this.headerNum = headerNum;
         this.clazz = clazz;
         setIndex2FieldNameMap(clazz);
