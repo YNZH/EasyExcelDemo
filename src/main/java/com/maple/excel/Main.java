@@ -3,6 +3,7 @@ package com.maple.excel;
 import com.maple.excel.config.ExcelImportConfig;
 import com.maple.excel.extend.ExtendFiled;
 import com.maple.excel.header.ExcelHeader;
+import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class Main {
 
     public static void main(String[] args) {
         List<? extends ExtendFiled> importList = testImport();
-        testExport();
+//        testExport();
     }
 
     private static List<? extends ExtendFiled> testImport() {
@@ -31,6 +32,17 @@ public class Main {
                 .doAllAnalysedConsumer((analysisContext -> System.out.println("finish")));
         Importer importer = new Importer();
         return importer.importFile(in, clazz, excelImportConfig);
+    }
+
+    /**
+     * 简单导入，没有自定义扩展字段，兼容合并单元格
+     */
+    @Test
+    public void simpleImport() {
+        InputStream in = Main.class.getClassLoader().getResourceAsStream("eventTypeTemplate.xls");
+        SimpleImport<ImportEventTypeBean> simpleImport = new SimpleImport<>(2, ImportEventTypeBean.class);
+        List<ImportEventTypeBean> parsedResultList = simpleImport.getParsedResultList(in);
+        System.out.println(parsedResultList);
     }
 
     private static void testExport() {
